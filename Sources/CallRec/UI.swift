@@ -271,6 +271,7 @@ struct Detail: View {
     var onDelete: () -> Void
     @State var text = ""
     @State var editing = false
+    @State var copied = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -282,6 +283,16 @@ struct Detail: View {
                     Label(player.playing == c.id ? "Pausar" : "Ouvir",
                           systemImage: player.playing == c.id ? "pause.fill" : "play.fill")
                 }
+                Button {
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(text, forType: .string)
+                    copied = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { copied = false }
+                } label: {
+                    Label(copied ? "Copiado" : "Copiar", systemImage: copied ? "checkmark" : "doc.on.doc")
+                }
+                .keyboardShortcut("c", modifiers: [.command, .shift])
+                .help("Copia a nota inteira em Markdown (⇧⌘C)")
                 if editing {
                     Button("Cancelar") { load(); editing = false }
                     Button("Salvar") { save() }.keyboardShortcut("s").buttonStyle(.borderedProminent)
