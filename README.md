@@ -1,3 +1,5 @@
+<p align="center"><img src="Resources/icon.png" width="128" alt="CallRec icon"></p>
+
 # CallRec
 
 CallRec is a small native macOS menu-bar app that records calls and meetings,
@@ -121,6 +123,7 @@ Sources/CallRec/
 ├── Store.swift      SQLite storage and full-text search
 ├── UI.swift         Notes window (SwiftUI)
 └── Settings.swift   Keychain API key and transcription language
+Resources/           App icon (regenerate with `swift scripts/make-icon.swift`)
 ```
 
 No third-party dependencies.
