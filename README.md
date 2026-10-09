@@ -59,6 +59,20 @@ The OpenAI key is stored in the macOS Keychain (menu-bar icon → *Definir chave
 OpenAI…*), or read from `OPENAI_API_KEY` if set. It is never written to disk in
 plain text or to the repository.
 
+## Install
+
+Download `CallRec-x.y.z.zip` from the [latest release](https://github.com/HugoluizMTB/callrec/releases/latest),
+unzip it and move `CallRec.app` to `/Applications`.
+
+CallRec is ad-hoc signed (no paid Apple Developer ID), so macOS blocks the first
+launch. Either:
+
+- open it once, then go to **System Settings → Privacy & Security** and click
+  **Open Anyway**, or
+- run `xattr -dr com.apple.quarantine /Applications/CallRec.app` in Terminal.
+
+This is a one-time step. Then set your OpenAI key from the menu-bar icon.
+
 ## Run locally
 
 ```bash

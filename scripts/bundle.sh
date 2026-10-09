@@ -9,9 +9,12 @@ BUNDLE_ID="app.callrec.CallRec"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 APP="$ROOT/build/$APP_NAME.app"
 
-echo "→ swift build -c $CONFIG"
-swift build -c "$CONFIG" --package-path "$ROOT"
-BIN="$(swift build -c "$CONFIG" --package-path "$ROOT" --show-bin-path)/$APP_NAME"
+# CALLREC_UNIVERSAL=1 builds arm64 + x86_64 (for release downloads)
+ARCHS=()
+[ -n "${CALLREC_UNIVERSAL:-}" ] && ARCHS=(--arch arm64 --arch x86_64)
+echo "→ swift build -c $CONFIG ${ARCHS[*]:-}"
+swift build -c "$CONFIG" --package-path "$ROOT" ${ARCHS[@]+"${ARCHS[@]}"}
+BIN="$(swift build -c "$CONFIG" --package-path "$ROOT" ${ARCHS[@]+"${ARCHS[@]}"} --show-bin-path)/$APP_NAME"
 
 echo "→ assembling $APP"
 rm -rf "$APP"
